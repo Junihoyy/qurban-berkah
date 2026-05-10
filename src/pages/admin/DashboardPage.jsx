@@ -54,7 +54,7 @@ export default function DashboardPage() {
               <p className="text-sm text-gray-500 mt-0.5">Ringkasan data hewan qurban</p>
             </div>
             <Link
-              to="/admin/tambah"
+              to="/kelola-qurban/tambah"
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:scale-[1.02]"
               style={{ backgroundColor: '#1a6b3a' }}
             >
@@ -77,7 +77,7 @@ export default function DashboardPage() {
           <div className="bg-white rounded-xl border border-gray-200 overflow-hidden" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
             <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
               <h2 className="text-sm font-semibold text-gray-900">5 Hewan Terbaru</h2>
-              <Link to="/admin/hewan" className="text-xs font-medium text-primary hover:underline">
+              <Link to="/kelola-qurban/hewan" className="text-xs font-medium text-primary hover:underline">
                 Lihat semua →
               </Link>
             </div>

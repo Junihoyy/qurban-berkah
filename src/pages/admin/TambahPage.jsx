@@ -9,7 +9,7 @@ export default function TambahPage() {
   const { toasts, addToast, removeToast } = useToast()
 
   const handleSuccess = () => {
-    setTimeout(() => navigate('/admin/hewan'), 1500)
+    setTimeout(() => navigate('/kelola-qurban/hewan'), 1500)
   }
 
   return (
@@ -22,7 +22,7 @@ export default function TambahPage() {
           {/* Header */}
           <div className="flex items-center gap-3 mb-6">
             <button
-              onClick={() => navigate('/admin/hewan')}
+              onClick={() => navigate('/kelola-qurban/hewan')}
               className="p-2 rounded-lg border border-gray-200 bg-white text-gray-500 hover:bg-gray-50 transition-colors"
             >
               <ArrowLeft size={18} />
@@ -38,7 +38,7 @@ export default function TambahPage() {
             <AnimalForm
               addToast={addToast}
               onSuccess={handleSuccess}
-              onCancel={() => navigate('/admin/hewan')}
+              onCancel={() => navigate('/kelola-qurban/hewan')}
             />
           </div>
         </div>

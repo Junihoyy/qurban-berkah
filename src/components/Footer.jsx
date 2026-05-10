@@ -64,7 +64,7 @@ export default function Footer() {
               ))}
               <li>
                 <a
-                  href="/admin"
+                  href="/kelola-qurban"
                   className="text-sm transition-colors hover:text-white"
                   style={{ color: 'rgba(255,255,255,0.55)' }}
                 >

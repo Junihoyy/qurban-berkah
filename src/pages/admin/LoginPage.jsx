@@ -2,29 +2,31 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Lock, User } from 'lucide-react'
 
-const ADMIN_USER = 'admin'
-const ADMIN_PASS = 'qurban2025'
+import { supabase } from '../../lib/supabase'
 
 export default function LoginPage() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ username: '', password: '' })
+  const [form, setForm] = useState({ email: '', password: '' })
   const [showPass, setShowPass] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setLoading(true)
-    setTimeout(() => {
-      if (form.username === ADMIN_USER && form.password === ADMIN_PASS) {
-        localStorage.setItem('qurban_admin', 'true')
-        navigate('/admin/dashboard')
-      } else {
-        setError('Username atau password salah. Coba lagi.')
-      }
+    
+    const { error } = await supabase.auth.signInWithPassword({
+      email: form.email,
+      password: form.password,
+    })
+
+    if (error) {
+      setError(error.message === 'Invalid login credentials' ? 'Email atau password salah.' : error.message)
       setLoading(false)
-    }, 600)
+    } else {
+      navigate('/kelola-qurban/dashboard')
+    }
   }
 
   return (
@@ -71,14 +73,14 @@ export default function LoginPage() {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Username</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
             <div className="relative">
               <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
-                type="text"
-                value={form.username}
-                onChange={(e) => setForm((p) => ({ ...p, username: e.target.value }))}
-                placeholder="admin"
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+                placeholder="admin@example.com"
                 required
                 className="input-field pl-10"
               />

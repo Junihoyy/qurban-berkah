@@ -1,18 +1,32 @@
+import { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, List, PlusCircle, LogOut } from 'lucide-react'
+import { supabase } from '../lib/supabase'
 
 const menuItems = [
-  { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
-  { label: 'Kelola Hewan', href: '/admin/hewan', icon: List },
-  { label: 'Tambah Hewan', href: '/admin/tambah', icon: PlusCircle },
+  { label: 'Dashboard', href: '/kelola-qurban/dashboard', icon: LayoutDashboard },
+  { label: 'Kelola Hewan', href: '/kelola-qurban/hewan', icon: List },
+  { label: 'Tambah Hewan', href: '/kelola-qurban/tambah', icon: PlusCircle },
 ]
 
 export default function AdminSidebar() {
   const navigate = useNavigate()
+  const [adminEmail, setAdminEmail] = useState('')
 
-  const handleLogout = () => {
-    localStorage.removeItem('qurban_admin')
-    navigate('/admin/login')
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user?.email) {
+        setAdminEmail(session.user.email)
+      }
+    })
+  }, [])
+
+  const handleLogout = async () => {
+    const confirmLogout = window.confirm('Apakah yakin ingin logout?')
+    if (!confirmLogout) return
+
+    await supabase.auth.signOut()
+    navigate('/kelola-qurban/login')
   }
 
   return (
@@ -32,7 +46,9 @@ export default function AdminSidebar() {
           </div>
           <div>
             <p className="text-white font-bold text-sm leading-tight">Qurban Berkah</p>
-            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>Panel Admin</p>
+            <p className="text-xs truncate max-w-[150px]" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              {adminEmail ? adminEmail : 'Panel Admin'}
+            </p>
           </div>
         </div>
 
