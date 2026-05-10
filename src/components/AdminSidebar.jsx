@@ -24,7 +24,6 @@ export default function AdminSidebar() {
   const handleLogout = async () => {
     const confirmLogout = window.confirm('Apakah yakin ingin logout?')
     if (!confirmLogout) return
-
     await supabase.auth.signOut()
     navigate('/kelola-qurban/login')
   }
@@ -33,21 +32,27 @@ export default function AdminSidebar() {
     <>
       {/* ── Desktop Sidebar ── */}
       <aside
-        className="hidden md:flex flex-col fixed top-0 left-0 h-full w-60 z-30"
-        style={{ backgroundColor: '#1a6b3a' }}
+        className="hidden md:flex flex-col fixed top-0 left-0 h-full z-30"
+        style={{ backgroundColor: '#1a6b3a', width: '240px' }}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2.5 px-5 py-5 border-b" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+        <div
+          className="flex items-center gap-2.5 px-5 py-5"
+          style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}
+        >
           <div
             className="w-9 h-9 rounded-full flex items-center justify-center text-lg shrink-0"
             style={{ backgroundColor: '#c9a84c' }}
           >
             🌙
           </div>
-          <div>
-            <p className="text-white font-bold text-sm leading-tight">Qurban Berkah</p>
-            <p className="text-xs truncate max-w-[150px]" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              {adminEmail ? adminEmail : 'Panel Admin'}
+          <div className="overflow-hidden">
+            <p className="text-white font-semibold text-sm leading-tight">Qurban Berkah</p>
+            <p
+              className="truncate text-xs mt-0.5"
+              style={{ color: 'rgba(255,255,255,0.5)', maxWidth: '150px' }}
+            >
+              {adminEmail || 'Panel Admin'}
             </p>
           </div>
         </div>
@@ -62,26 +67,39 @@ export default function AdminSidebar() {
                 `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
                   isActive
                     ? 'text-white'
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                    : 'hover:text-white hover:bg-white/10'
                 }`
               }
-              style={({ isActive }) =>
-                isActive ? { backgroundColor: 'rgba(255,255,255,0.15)' } : {}
-              }
+              style={({ isActive }) => ({
+                color: isActive ? 'white' : 'rgba(255,255,255,0.80)',
+                backgroundColor: isActive ? 'rgba(255,255,255,0.15)' : 'transparent',
+              })}
             >
-              <Icon size={17} />
+              <Icon size={16} />
               {label}
             </NavLink>
           ))}
         </nav>
 
-        {/* Logout */}
-        <div className="px-3 py-4 border-t" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+        {/* Logout — merah muda */}
+        <div className="px-3 py-4" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-white/70 hover:text-white hover:bg-white/10"
+            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-all"
+            style={{
+              backgroundColor: 'rgba(254,226,226,0.15)',
+              color: '#fca5a5',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(254,226,226,0.25)'
+              e.currentTarget.style.color = '#fecaca'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(254,226,226,0.15)'
+              e.currentTarget.style.color = '#fca5a5'
+            }}
           >
-            <LogOut size={17} />
+            <LogOut size={16} />
             Keluar
           </button>
         </div>
@@ -89,8 +107,12 @@ export default function AdminSidebar() {
 
       {/* ── Mobile Bottom Navigation ── */}
       <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t"
-        style={{ backgroundColor: '#1a6b3a', borderColor: 'rgba(255,255,255,0.15)' }}
+        className="md:hidden fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around"
+        style={{
+          backgroundColor: '#1a6b3a',
+          borderTop: '1px solid rgba(255,255,255,0.15)',
+          paddingBottom: 'env(safe-area-inset-bottom)',
+        }}
       >
         {menuItems.map(({ label, href, icon: Icon }) => (
           <NavLink
@@ -108,7 +130,8 @@ export default function AdminSidebar() {
         ))}
         <button
           onClick={handleLogout}
-          className="flex flex-col items-center gap-1 px-4 py-3 text-xs font-medium text-white/60"
+          className="flex flex-col items-center gap-1 px-4 py-3 text-xs font-medium"
+          style={{ color: '#fca5a5' }}
         >
           <LogOut size={20} />
           <span>Keluar</span>

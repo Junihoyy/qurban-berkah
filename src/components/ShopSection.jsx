@@ -6,17 +6,17 @@ import SkeletonCard from './SkeletonCard'
 
 function EmptyState({ hasFilter }) {
   return (
-    <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-4 opacity-40">
-        <circle cx="60" cy="60" r="55" fill="#e8f5e9" />
-        <text x="50%" y="54%" dominantBaseline="middle" textAnchor="middle" fontSize="48">
-          {hasFilter ? '🔍' : '🐐'}
-        </text>
-      </svg>
-      <h3 className="text-base font-semibold text-gray-700 mb-1">
+    <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
+      <div
+        className="w-20 h-20 rounded-full flex items-center justify-center mb-4"
+        style={{ backgroundColor: '#e8f5e9' }}
+      >
+        <span className="text-4xl">{hasFilter ? '🔍' : '🐐'}</span>
+      </div>
+      <h3 className="font-semibold text-gray-700 mb-1" style={{ fontSize: '14px' }}>
         {hasFilter ? 'Tidak ada hewan yang sesuai filter' : 'Belum ada hewan tersedia'}
       </h3>
-      <p className="text-sm text-gray-400">
+      <p className="text-gray-400" style={{ fontSize: '13px' }}>
         {hasFilter ? 'Coba ubah filter pencarian Anda' : 'Silakan cek kembali nanti'}
       </p>
     </div>
@@ -52,7 +52,6 @@ export default function ShopSection() {
   useEffect(() => {
     fetchAnimals()
 
-    // Realtime subscription
     const channel = supabase
       .channel('animals-realtime')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'animals' }, () => {
@@ -73,13 +72,22 @@ export default function ShopSection() {
   const hasFilter = search !== '' || typeFilter !== 'all' || priceFilter !== 'all'
 
   return (
-    <section id="shop" className="py-20" style={{ backgroundColor: '#f9fafb' }}>
+    <section id="shop" className="py-8 sm:py-12" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-10">
-          <p className="section-tag">— Pilihan Terbaik</p>
-          <h2 className="section-title">Shop Hewan Qurban</h2>
-          <p className="text-sm text-gray-500 mt-2">Temukan hewan qurban sesuai budget Anda</p>
+        <div className="text-center mb-8">
+          <p
+            className="font-semibold uppercase tracking-wider mb-1"
+            style={{ color: '#1a6b3a', fontSize: '11px' }}
+          >
+            — Pilihan Terbaik
+          </p>
+          <h2 className="font-semibold text-gray-900" style={{ fontSize: '20px' }}>
+            Shop Hewan Qurban
+          </h2>
+          <p className="text-gray-500 mt-1" style={{ fontSize: '13px' }}>
+            Temukan hewan qurban sesuai budget Anda
+          </p>
         </div>
 
         {/* Filter */}
@@ -93,7 +101,7 @@ export default function ShopSection() {
         />
 
         {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
           {loading ? (
             Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
           ) : filtered.length === 0 ? (
@@ -107,8 +115,8 @@ export default function ShopSection() {
 
         {/* Results count */}
         {!loading && filtered.length > 0 && (
-          <p className="text-center text-sm text-gray-400 mt-6">
-            Menampilkan <span className="font-semibold text-primary">{filtered.length}</span> hewan
+          <p className="text-center text-gray-400 mt-5" style={{ fontSize: '13px' }}>
+            Menampilkan <span className="font-semibold" style={{ color: '#1a6b3a' }}>{filtered.length}</span> hewan
           </p>
         )}
       </div>

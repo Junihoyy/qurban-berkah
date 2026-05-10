@@ -33,28 +33,30 @@ export default function Navbar() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-14">
             {/* Logo */}
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
               <div
-                className="w-9 h-9 rounded-full flex items-center justify-center text-lg font-bold"
-                style={{ backgroundColor: '#c9a84c', color: '#0d4a27' }}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-base shrink-0"
+                style={{ backgroundColor: '#c9a84c' }}
               >
                 🌙
               </div>
-              <span className="text-white font-bold text-lg tracking-tight">
+              <span className="text-white font-semibold text-base tracking-tight">
                 Qurban Berkah
               </span>
             </div>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-0.5">
               {navLinks.map((link) => (
                 <button
                   key={link.label}
                   onClick={() => handleNavClick(link.href)}
-                  className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:text-[#c9a84c]"
+                  className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
                   style={{ color: 'rgba(255,255,255,0.85)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#c9a84c')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.85)')}
                 >
                   {link.label}
                 </button>
@@ -62,13 +64,13 @@ export default function Navbar() {
             </div>
 
             {/* Right: LIVE badge + hamburger */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               {/* LIVE Badge */}
               <div
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-bold"
-                style={{ backgroundColor: '#e53e3e' }}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-white font-bold"
+                style={{ backgroundColor: '#e53e3e', fontSize: '10px' }}
               >
-                <span className="w-2 h-2 rounded-full bg-white pulse-dot inline-block" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white pulse-dot inline-block" />
                 LIVE
               </div>
 
@@ -78,7 +80,7 @@ export default function Navbar() {
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
                 aria-label="Toggle menu"
               >
-                {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
+                {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
@@ -99,21 +101,21 @@ export default function Navbar() {
 
         {/* Drawer from right */}
         <div
-          className={`absolute top-0 right-0 h-full w-64 transition-transform duration-300 ${
+          className={`absolute top-0 right-0 h-full w-60 transition-transform duration-300 ${
             isMobileOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
           style={{ backgroundColor: '#0d4a27' }}
         >
           <div className="flex items-center justify-between p-4 border-b border-white/10">
-            <span className="text-white font-bold">Menu</span>
+            <span className="text-white font-semibold text-sm">Menu</span>
             <button
-              className="text-white p-1 rounded hover:bg-white/10"
+              className="text-white p-1 rounded hover:bg-white/10 transition-colors"
               onClick={() => setIsMobileOpen(false)}
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
-          <div className="p-4 flex flex-col gap-1">
+          <div className="p-3 flex flex-col gap-1">
             {navLinks.map((link) => (
               <button
                 key={link.label}

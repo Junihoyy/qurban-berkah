@@ -30,19 +30,19 @@ const faqs = [
 
 function FAQItem({ item, isOpen, onToggle }) {
   return (
-    <div className="border-b border-gray-200 last:border-b-0">
+    <div style={{ borderBottom: '1px solid #e5e7eb' }} className="last:border-b-0">
       <button
         onClick={onToggle}
         className="w-full flex items-start justify-between gap-4 py-5 text-left"
       >
         <span
-          className="text-sm font-semibold leading-snug transition-colors duration-200"
-          style={{ color: isOpen ? '#1a6b3a' : '#1a1a1a' }}
+          className="font-semibold leading-snug transition-colors duration-200"
+          style={{ color: isOpen ? '#1a6b3a' : '#1a1a1a', fontSize: '14px' }}
         >
           {item.q}
         </span>
         <ChevronDown
-          size={18}
+          size={16}
           className="shrink-0 mt-0.5 text-gray-400 transition-transform duration-300"
           style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
         />
@@ -53,7 +53,10 @@ function FAQItem({ item, isOpen, onToggle }) {
         className="overflow-hidden transition-all duration-300 ease-in-out"
         style={{ maxHeight: isOpen ? '400px' : '0px', opacity: isOpen ? 1 : 0 }}
       >
-        <p className="pb-5 text-sm leading-relaxed" style={{ color: '#6b7280' }}>
+        <p
+          className="pb-5 leading-relaxed"
+          style={{ color: '#6b7280', fontSize: '13px', lineHeight: '1.6' }}
+        >
           {item.a}
         </p>
       </div>
@@ -65,19 +68,26 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <section id="faq" className="py-20 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="bg-white" style={{ padding: '32px 16px' }}>
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <p className="section-tag">— Pertanyaan Umum</p>
-          <h2 className="section-title">FAQ</h2>
-          <p className="text-sm text-gray-500 mt-2">Jawaban atas pertanyaan yang sering ditanyakan</p>
+        <div className="text-center mb-10">
+          <p
+            className="font-semibold uppercase tracking-wider mb-1"
+            style={{ color: '#1a6b3a', fontSize: '11px' }}
+          >
+            — Pertanyaan Umum
+          </p>
+          <h2 className="font-semibold text-gray-900" style={{ fontSize: '20px' }}>FAQ</h2>
+          <p className="text-gray-500 mt-1" style={{ fontSize: '13px' }}>
+            Jawaban atas pertanyaan yang sering ditanyakan
+          </p>
         </div>
 
         {/* Accordion */}
         <div
-          className="rounded-xl border border-gray-200 px-6"
-          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+          className="rounded-xl bg-white px-6"
+          style={{ border: '1px solid #e5e7eb', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
         >
           {faqs.map((item, i) => (
             <FAQItem

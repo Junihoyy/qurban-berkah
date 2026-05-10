@@ -21,32 +21,33 @@ export default function HeroSection() {
   return (
     <section
       id="beranda"
-      className="relative min-h-screen flex items-center overflow-hidden pt-16"
+      className="relative min-h-screen flex items-center overflow-hidden pt-14"
       style={{
         background: 'linear-gradient(135deg, #1a6b3a 0%, #0d4a27 100%)',
       }}
     >
       {/* Decorative blur circles */}
       <div
-        className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
+        className="absolute top-0 right-0 w-80 h-80 rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)',
           transform: 'translate(30%, -30%)',
         }}
       />
       <div
-        className="absolute bottom-0 left-0 w-80 h-80 rounded-full pointer-events-none"
+        className="absolute bottom-0 left-0 w-72 h-72 rounded-full pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)',
           transform: 'translate(-30%, 30%)',
         }}
       />
 
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        {/* Small tag */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-medium"
+      <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+        {/* Pill tag */}
+        <div
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-medium"
           style={{
-            backgroundColor: 'rgba(201,168,76,0.2)',
+            backgroundColor: 'rgba(201,168,76,0.15)',
             border: '1px solid rgba(201,168,76,0.4)',
             color: '#c9a84c',
           }}
@@ -55,7 +56,10 @@ export default function HeroSection() {
         </div>
 
         {/* H1 */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+        <h1
+          className="font-bold text-white leading-tight mb-5"
+          style={{ fontSize: 'clamp(28px, 5vw, 52px)' }}
+        >
           Hewan Qurban{' '}
           <span style={{ color: '#c9a84c' }}>Terpercaya</span>
           ,<br className="hidden sm:block" /> Langsung dari Peternak
@@ -63,18 +67,23 @@ export default function HeroSection() {
 
         {/* Subtitle */}
         <p
-          className="text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-          style={{ color: 'rgba(255,255,255,0.75)' }}
+          className="max-w-xl mx-auto mb-8 leading-relaxed"
+          style={{ color: 'rgba(255,255,255,0.75)', fontSize: '14px' }}
         >
-          Langsung dari Peternak, Terpercaya & Terawat — pilih hewan qurban terbaik dengan bobot terukur dan harga transparan.
+          Langsung dari Peternak, Terpercaya &amp; Terawat — pilih hewan qurban terbaik dengan bobot terukur dan harga transparan.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
           <button
             onClick={handleShopClick}
-            className="btn-gold text-base px-8 py-3.5 font-semibold"
-            style={{ color: '#0d4a27', backgroundColor: '#c9a84c' }}
+            className="font-semibold rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              backgroundColor: '#c9a84c',
+              color: '#0d4a27',
+              padding: '10px 20px',
+              fontSize: '14px',
+            }}
           >
             Lihat Hewan Qurban
           </button>
@@ -82,21 +91,29 @@ export default function HeroSection() {
             href={generateWhatsAppGeneral()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline-white text-base px-8 py-3.5 font-semibold"
+            className="font-semibold rounded-lg transition-all duration-200 hover:bg-white hover:text-primary hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              border: '1px solid rgba(255,255,255,0.85)',
+              color: 'white',
+              padding: '10px 20px',
+              fontSize: '14px',
+            }}
           >
             Hubungi Kami
           </a>
         </div>
 
         {/* Badges keunggulan */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {badges.map((badge) => (
             <span
               key={badge}
-              className="px-4 py-2 rounded-full text-sm font-medium text-white"
+              className="px-4 py-2 rounded-full font-medium"
               style={{
                 backgroundColor: 'rgba(255,255,255,0.08)',
                 border: '1px solid rgba(255,255,255,0.15)',
+                color: 'rgba(255,255,255,0.80)',
+                fontSize: '13px',
               }}
             >
               {badge}
@@ -106,21 +123,24 @@ export default function HeroSection() {
 
         {/* Stats */}
         <div
-          className="inline-flex flex-wrap justify-center gap-0 rounded-2xl px-6 py-4"
-          style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
+          className="inline-flex flex-wrap justify-center gap-0 rounded-2xl px-4 py-3"
+          style={{
+            backgroundColor: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.1)',
+          }}
         >
           {stats.map((stat, i) => (
             <div key={stat.label} className="flex items-center">
-              <div className="px-6 text-center">
-                <div className="text-2xl font-bold" style={{ color: '#c9a84c' }}>
+              <div className="px-5 text-center">
+                <div className="text-xl font-bold" style={{ color: '#c9a84c' }}>
                   {stat.value}
                 </div>
-                <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.60)' }}>
                   {stat.label}
                 </div>
               </div>
               {i < stats.length - 1 && (
-                <div className="w-px h-10 self-center" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }} />
+                <div className="w-px h-8 self-center" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }} />
               )}
             </div>
           ))}
